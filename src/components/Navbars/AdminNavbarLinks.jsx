@@ -17,7 +17,7 @@ class AdminNavbarLinks extends Component {
     firebase.auth().signOut().then(res => {
       console.log(res);
       localStorage.clear();
-      window.location.href = '/dominus-freight-react-dashboard/admin/login';
+      window.location.href = '/admin/login';
     })
     .catch(error => {
       console.log(error);
