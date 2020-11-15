@@ -16,7 +16,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/dominus-freight-react-dashboard/admin" render={props => <AdminLayout {...props} />} />
-      <Redirect from="/dominus-freight-react-dashboard" to="dominus-freight-react-dashboard/admin/login" />
+      <Redirect from="/dominus-freight-react-dashboard" to="/dominus-freight-react-dashboard/admin/login" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
