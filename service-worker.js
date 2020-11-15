@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dominus-freight-react-dashboard/precache-manifest.3b8f5b90a2759683a7bf78ab06495fa5.js"
+  "/dominus-freight-react-dashboard/precache-manifest.f181a5e6e28309cc293d18a8a06e3222.js"
 );
 
 self.addEventListener('message', (event) => {
