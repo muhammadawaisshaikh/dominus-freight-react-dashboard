@@ -13,7 +13,7 @@ import "./assets/css/pe-icon-7-stroke.css";
 import AdminLayout from "layouts/Admin.jsx";
 
 ReactDOM.render(
-  <BrowserRouter basename="/dominus-freight-react-dashboard">
+  <BrowserRouter>
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Redirect from="/" to="/admin/login" />
