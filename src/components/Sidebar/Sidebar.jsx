@@ -10,7 +10,8 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth
+      width: window.innerWidth,
+      customer: JSON.parse(localStorage.getItem('customer'))
     };
   }
   activeRoute(routeName) {
@@ -59,7 +60,7 @@ class Sidebar extends Component {
           <ul className="nav">
             {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
             {this.props.routes.map((prop, key) => {
-              if (!prop.redirect && prop.display)
+              if (!prop.redirect && prop.display) {
                 return (
                   <li
                     className={
@@ -79,7 +80,10 @@ class Sidebar extends Component {
                     </NavLink>
                   </li>
                 );
-              return null;
+              }
+              else {
+                return null;
+              }
             })}
           </ul>
         </div>

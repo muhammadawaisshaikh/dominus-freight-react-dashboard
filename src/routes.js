@@ -18,6 +18,8 @@ import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 
+const customer = JSON.parse(localStorage.getItem('customer'));
+
 const dashboardRoutes = [
   // {
   //   path: "/dashboard",
@@ -56,7 +58,7 @@ const dashboardRoutes = [
     icon: "pe-7s-box2",
     component: LoadSetup,
     layout: "/admin",
-    display: true
+    display: customer && customer.account_type == 'admin' ? true : false
   },
   {
     path: "/load-edit",
@@ -72,7 +74,7 @@ const dashboardRoutes = [
     icon: "pe-7s-server",
     component: Customers,
     layout: "/admin",
-    display: true
+    display: customer && customer.account_type == 'admin' ? true : false
   },
   {
     path: "/customer-setup",
@@ -80,7 +82,7 @@ const dashboardRoutes = [
     icon: "pe-7s-user",
     component: CustomerSetup,
     layout: "/admin",
-    display: true
+    display: customer && customer.account_type == 'admin' ? true : false
   },
   {
     path: "/login",

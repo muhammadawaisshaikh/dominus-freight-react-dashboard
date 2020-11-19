@@ -31,20 +31,36 @@ class Login extends Component {
         .then(res => {
             if (res.user.uid) {
                 localStorage.setItem('user', JSON.stringify(res.user));
-                window.location.href = '/admin/home';
 
-                // const customerRef = firebase.database().ref('customers');
+                const customerRef = firebase.database().ref('customers');
 
-                // customerRef.orderByChild("company_email").equalTo(res.user.email).on("child_added", (snap) => {
-                //   this.setState({ customer: snap.val() })
-                //   console.log(this.state.customer);
-                // });
+                customerRef.orderByChild("company_email").equalTo(res.user.email).on("child_added", (snap) => {
+                  this.setState({ customer: snap.val() });
+                  localStorage.setItem('customer', JSON.stringify(this.state.customer));
+                  window.location.href = '/admin/home';
+                });
             }
         })
         .catch(error => {
             console.log(error);
         })
     }
+
+    getProfile = () => {
+      let profileRef = firebase.database().ref('customers/' + this.state.customerDetails.id);
+
+      profileRef.on('value', (snapshot) => {
+          const profile = snapshot.val();
+          console.log("profile", profile);
+
+          this.setState({
+              name: profile.company_name,
+              email: profile.company_email,
+              contact: profile.company_contact,
+              account_type: profile.account_type,
+          });
+      })
+  }
 
   render() {
     return (
@@ -58,7 +74,7 @@ class Login extends Component {
                 content={
                     <form>
                         <div className="form-row">
-                            <div className="form-group col-md-12">
+                            <div className="form-group col-md-12 px-2">
                                 <label>Email</label>
                                 <input type="email" name="email"  className="form-control" value={this.state.email} onChange={(event) => this.handleChange(event)}></input>
                             </div>

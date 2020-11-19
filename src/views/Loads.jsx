@@ -10,6 +10,7 @@ class Loads extends Component {
     super(props);
 
     this.state = {
+      customer: JSON.parse(localStorage.getItem('customer')),
       loads: [],
       itemsToUse: [],
       search: '',
@@ -22,7 +23,10 @@ class Loads extends Component {
   }
 
   getLoads = () => {
+    let account = '';
     let tempLloads = [];
+    let filteredLoads = [];
+
     const loadRef = firebase.database().ref('loads');
 
     loadRef.on('value', (snapshot) => {
@@ -31,10 +35,34 @@ class Loads extends Component {
       for (let id in loads) {
         tempLloads.push({ id, ...loads[id] });
       }
-      this.setState({ loads: tempLloads });
-      this.setState({ itemsToUse: tempLloads });
 
-      console.log(this.state.loads);
+      if (this.state.customer.account_type == 'admin') {
+        this.setState({ loads: tempLloads });
+        this.setState({ itemsToUse: tempLloads });
+      }
+      else {
+        tempLloads.map((item, i) => {
+          if (this.state.customer.account_type == 'driver') {
+            account = JSON.parse(item.driver).company_email;
+          }
+          if (this.state.customer.account_type == 'shipper') {
+            account = JSON.parse(item.shipper).company_email;
+          }
+          if (this.state.customer.account_type == 'carrier') {
+            account = JSON.parse(item.carrier).company_email;
+          }
+  
+          if (account == this.state.customer.company_email) {
+            filteredLoads.push(item);
+            console.log(item);
+          }
+        })
+      
+        this.setState({ loads: filteredLoads });
+        this.setState({ itemsToUse: filteredLoads });
+      }
+
+      console.log("loads", this.state.loads);
     });
   };
 
@@ -125,9 +153,14 @@ class Loads extends Component {
                               <Link className="mr-3 btn btn-primary btn-fill px-3 py-2" to={{ pathname: "/admin/load-details", data: item }}>
                                 View
                               </Link>
-                              <Link className="btn btn-success btn-fill px-3 py-2" to={{ pathname: "/admin/load-edit", data: item }}>
-                                Edit
-                              </Link>
+                              {
+                                this.state.customer && this.state.customer.account_type == 'admin' ? 
+                                <Link className="btn btn-success btn-fill px-3 py-2" to={{ pathname: "/admin/load-edit", data: item }}>
+                                  Edit
+                                </Link>
+                                :
+                                null
+                              }
                             </td>
                           </tr>
                         ))
