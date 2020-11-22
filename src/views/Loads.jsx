@@ -81,11 +81,11 @@ class Loads extends Component {
       this.setState({ itemsToUse: this.state.loads });
     }
     if (value == 'past') {
-      filtered = this.state.itemsToUse.filter(item => item.load_type == 'past');
+      filtered = this.state.loads.filter(item => item.load_type == 'past');
       this.setState({ itemsToUse: filtered });
     }
     if (value == 'active') {
-      filtered = this.state.itemsToUse.filter(item => item.load_type == 'active');
+      filtered = this.state.loads.filter(item => item.load_type == 'active');
       this.setState({ itemsToUse: filtered });
     }
   }
