@@ -27,16 +27,8 @@ class LoadDetails extends Component {
                 <Row>
                   <Col md={5} className="details">
                     <Row className="pb-5">
-                      <Col md={6} className="heading">
+                      <Col md={12} className="heading">
                         <h4 className="p-0 m-0">All Updates</h4>
-                      </Col>
-                      <Col md={6} className="checkbox">
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox" value=""></input>
-                          <label className="form-check-label">
-                            Notify Me
-                          </label>
-                        </div>
                       </Col>
                     </Row>
 
